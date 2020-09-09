@@ -23,7 +23,7 @@ function csvObjectExploder($csvTab){
 	}
 	return $csvTab;
 }
-	$csv_tab = csvParser(100,"dpt2018.csv");
+	$csv_tab = csvParser(200,"dpt2018.csv");
 	$csv_tab = csvObjectExploder($csv_tab);
 	print_r($csv_tab);
 		
