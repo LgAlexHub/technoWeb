@@ -2,16 +2,15 @@
     class WorldState{
         private $cells = [];
 
-        public function __construct($nbCells)
+        public function __construct($nbCells=100)
         {
-            if ($nbCells == null) $nbCells=100;
             $this->cells = array_fill(0,$nbCells,null);
         }
 
-        public static function buildFixedWorld($nbCells){
+        public static function buildFixedWorld($nbCells,$ratio){
             $tmp = new WorldState($nbCells);
             for ($i  = 0 ; $i < $nbCells ; $i++){
-                $tmp->cells[$i]=(rand(0,10)<1);
+                $tmp->cells[$i]=((rand(0,100)/100))<$ratio;
             }
             return $tmp;
         }
@@ -32,7 +31,7 @@
             
         }
 
-        public function compute_next_state_rulle110($leftAlive,$selfAlive,$rightAlive){
+        public function compute_next_state_rule110($leftAlive,$selfAlive,$rightAlive){
             $res="";
             if ($leftAlive == true && $selfAlive == true && $rightAlive == true){
                 $res = true;
@@ -45,8 +44,8 @@
             }
             return $res;
         }
-
-        public function compute_next_generation (){
+	// $compute_next_state doit être appelé sous forme de chaîne 
+        public function compute_next_generation ($compute_next_state){
         
             for ($i = 0 ; $i < sizeof($this->cells);$i++){
                 if ($i == 0){
@@ -55,11 +54,12 @@
                     $left = (($i-1)%100);
                 }
                 $right = (($i+1)%100);
-                $this->cells[$i] = $this->compute_next_state_rulle110($this->cells[$left],$this->cells[$i],$this->cells[$right]);
+                $this->cells[$i] = $compute_next_state($this->cells[$left],$this->cells[$i],$this->cells[$right]);
             }
             $trash=null;
             system("clear",$trash);
-            $this->__toString();
+	    $this->__toString();
+	    echo "\n";
             return $this;
         }
 
@@ -75,13 +75,20 @@
 
         public function displayEvolution($nb){
             for ($i = 0 ; $i < $nb ; $i++){
-                $this->worldStateInstance = $this->worldStateInstance->compute_next_generation();
-                usleep(350000);
-            }
-        }
+		    	$this->worldStateInstance = $this->worldStateInstance->compute_next_generation('compute_next_state_rule110');
+		    	usleep(350000);
+            		}
+		}
+	}
+   
+    if (sizeof($argv) == 4){
+	$myWorld = WorldState::buildFixedWorld($argv[2],$argv[1]);
+    	$mySimulator = new Simulator($myWorld);
+	$mySimulator->displayEvolution($argv[3]);
+    }else{
+	$myWorld = WorldState::buildFixedWorld(100,0.2);
+	$mySimulator = new Simulator($myWorld);
+	$mySimulator->displayEvolution(10);
     }
 
-    $myWorld = WorldState::buildFixedWorld(100);
-    $mySimulator = new Simulator($myWorld);
-    $mySimulator->displayEvolution(50);
 ?>
