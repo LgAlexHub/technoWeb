@@ -15,8 +15,9 @@
         public function displayEvolution($nb=50){
             for ($i = 0 ; $i < $nb ; $i++){
                 $this->worldStateInstance = $this->worldStateInstance->compute_next_generation($this->interfaceInstance);
-		    	usleep(350000);
-            		}
+                $this->displayerIterfaceInstance->displayWorld($this->worldStateInstance);
+              
+            }
         }
 
         
