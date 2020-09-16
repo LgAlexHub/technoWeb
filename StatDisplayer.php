@@ -1,6 +1,7 @@
 <?php 
     include_once('./Displayer.php');
-    class StatDisplayer implements Displayer{
+    include_once('./PausingTerminalDisplayer.php');
+    class StatDisplayer extends PausingTerminalDisplayer implements Displayer{
         public function displayWorld(WorldState $worldStateInstance){
             echo "[Âge] -> ".$worldStateInstance->__getAge();
             $wolrdCells = $worldStateInstance->__getCells();

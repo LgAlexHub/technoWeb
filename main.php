@@ -9,7 +9,7 @@
     include_once('./StatDisplayer.php');
     $myRule = new Rule110();
     $myWorld = WorldState::buildFixedWorld($argv[1],$argv[2]);
-    $myDisplayInter = new StatDisplayer();
+    $myDisplayInter = new StatDisplayer("B","N");
     $mySimulator = new Simulator($myWorld,$myRule,$myDisplayInter);
     $mySimulator->displayEvolution($argv[3]);
 ?>
