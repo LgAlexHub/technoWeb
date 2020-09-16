@@ -9,7 +9,7 @@
         {   
             $this->worldStateInstance = $worldStateInstance;
             $this->interfaceInstance = $interfaceInstance;
-            $this->displayerIterfaceInstance = $displayerIterfaceInstance 
+            $this->displayerIterfaceInstance = $displayerIterfaceInstance;
         }
 
         public function displayEvolution($nb=50){

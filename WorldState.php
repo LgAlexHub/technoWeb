@@ -31,6 +31,10 @@
             return $this->cells;
         }
 
+        public function __setCells($cells){
+            $this->cells = $cells;
+        }
+
         public function isCellAliveAtPosition($position){
             return ($position < sizeof($this->cells && $this->cells[$position])==true);
         }
