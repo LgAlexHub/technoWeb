@@ -9,6 +9,7 @@
             $this->deadPixel = $deadPixel;
         }
         public function displayWorld(WorldState $worldStateInstance){
+			echo "<PRE>";
             $cellsArray = $worldStateInstance->__getCells();
             for ($i = 0 ; $i < sizeof($cellsArray); $i++){
                 if ($cellsArray[$i] == true){
@@ -19,6 +20,7 @@
             } 
             $this->iterationControl();
             echo "\n";
+            echo "</PRE>";
         }
 
         public abstract function iterationControl();
